@@ -1,0 +1,53 @@
+.java-course 
+{
+    background-color: #0084b0;
+}
+
+.web-course 
+{
+    background-color: white; 
+}
+
+.math-course 
+{
+    background-color: #ff69b4; 
+}
+
+.history-course 
+{
+    background-color: #ffff00; 
+}
+.computer-course 
+{
+    background-color: #ff0000; 
+}
+
+.book-item 
+{
+    display: flex;
+    flex-direction: column; 
+    gap: 10px; 
+    margin-bottom: 15px; 
+}
+.book-item img
+{
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all 2s ease;
+    transform-origin: center center;
+    position: relative;
+    z-index: 1;
+}
+.book-item img:hover
+{
+    height: 480px;
+    width: auto;
+    transform: rotate(360deg);
+    z-index: 10;
+}
+html::-webkit-scrollbar
+{
+    display: none;
+}
