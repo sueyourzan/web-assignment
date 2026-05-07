@@ -1,0 +1,15 @@
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    background: transparent; 
+}
+html {
+    scrollbar-width: none;
+}
+html {
+    -ms-overflow-style: none;
+}
+html, body {
+    height: 100%;
+    overflow: auto;
+}
