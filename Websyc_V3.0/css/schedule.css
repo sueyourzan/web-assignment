@@ -1,6 +1,6 @@
 .java-course 
 {
-    background-color: #0084b0;
+    background-color: #6495ED;
 }
 
 .web-course 
@@ -19,8 +19,13 @@
 }
 .computer-course 
 {
-    background-color: #ff0000; 
+    background-color: red; 
 }
+.database-course 
+{
+    background-color: #00ffff; 
+}
+
 h3 
 {   
     color: red;
@@ -31,7 +36,9 @@ table
 {
     width: 100%;
     border-collapse: collapse;
+    /* border-spacing: 1px; */
     table-layout: fixed;
+    border: 1px solid #000; 
 }
 th
 {
@@ -45,4 +52,22 @@ td
     padding: 2px 5px;
     height: 35px;
     font-size: 14px;
+}
+
+#course-info {
+    margin-top: 20px;
+    font-size: 24px;
+    color: #f0f; /* 粉色文字 */
+    min-height: 40px; /* 保持位置不跳动 */
+    display: inline-block;
+    padding-bottom: 5px;
+    /* text-decoration: underline; */
+}
+#course-info a {
+    color: #f0f; /* 粉色链接 */
+    text-decoration: underline;
+    cursor: pointer;
+}
+#course-info a:hover {
+    color: #00f        
 }

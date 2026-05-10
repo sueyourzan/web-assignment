@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/common.css">
-    <script> src="js/utils.js"</script>
+    <script src="js/utils.js"></script>
 </head>
 <body>
     <a name="top"></a>
@@ -20,14 +20,17 @@
         <a href="introduce.html" target="mainFrame">课程简介</a>
         <a href="schedule.html" target="mainFrame">课表</a>
         <a href="book.html" target="mainFrame">教材</a>
+        <a href="memo.html" target="mainFrame">备忘录</a>
+        <div class="time">
+            <span id="current-time"></span>
+        </div>
     </div>
 
     <iframe 
         src="introduce.html"
         name="mainFrame"
-        class="mainFrame"
-        height="320px"
-        width="640px">
+        id="mainFrame"
+        class="mainFrame">
     </iframe>
 
     
@@ -36,5 +39,28 @@
         联系人：苏友灿 &nbsp;&nbsp; 学号：3232707221
     </div>
 
+    <script type="text/javascript">
+        function autoResize() {
+            // 1. 计算内容实际高度
+            var h2Height = document.getElementsByTagName("h2")[0]?.offsetHeight || 0;
+            var pHeight = document.getElementsByTagName("p")[0]?.offsetHeight || 0; // 假设只有一个p，或者你想算所有p的总和
+            var footerHeight = document.getElementsByTagName("footer")[0]?.offsetHeight || 0;
+            
+            // 获取整个文档的高度（这是最稳妥的算法，比一个个减去元素更准）
+            var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+
+            // 2. 获取父页面(index.html)中的 iframe 元素
+            if (parent && parent.document.getElementById("mainFrame")) {
+                var iframe = parent.document.getElementById("mainFrame");
+                
+                // 3. 设置 iframe 高度
+                iframe.style.height = scrollHeight + "px";
+            }
+        }
+
+        // 页面加载完成后执行
+        window.onload = autoResize;
+        window.onresize = autoResize;
+    </script>
 </body>
 </html>

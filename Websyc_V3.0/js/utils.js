@@ -30,3 +30,21 @@ function getWeek(date){
 		case 6:return "星期六";
 	}
 }
+var mobile=false;
+var device=navigator.userAgent;
+if((device.indexOf("iPhone")>0)||(device.indexOf("Android")>0))
+    mobile=true;
+
+function updateTime() {
+    var now = new Date();
+    var timeString = now.format("hh:mm:ss");
+    var dataString = now.format("yyyy-MM-dd") + " " ;
+    var timeDom = document.getElementById("current-time");
+    if(timeDom){
+        timeDom.innerHTML = mobile ? timeString : dataString + " " + timeString;
+    }
+}
+document.addEventListener("DOMContentLoaded", function() {
+    updateTime();
+    setInterval(updateTime, 1000);
+});
