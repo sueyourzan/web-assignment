@@ -14,7 +14,7 @@
     <div class="header-bar">
         <h3>备忘录：</h3>
         <span id="todayDisplay" class="date-info">加载中...</span>
-        <button class="btn-add" onclick="showForm();showHistory()">添加备忘录</button>
+        <button class="btn-add" onclick="showForm()">添加备忘录</button>
     </div>
     
      <!-- 表单区域 (默认隐藏) -->
@@ -69,10 +69,23 @@ document.getElementById('todayDisplay').innerHTML =
         `<span class="text">今天是</span>${weekStr}`;
 }
 
+// 修改后的 showForm 函数
 function showForm() {
-    document.getElementById('form1').style.display = 'block';
-    // 设置默认日期为今天
-    document.getElementById('date').valueAsDate = new Date();
+    var form = document.getElementById('form1');
+    
+    // 获取当前的显示状态
+    // 注意：如果 CSS 中设置的是 display: none，这里获取到的可能是空字符串，需要兼容处理
+    var isHidden = window.getComputedStyle(form).display === 'none';
+
+    if (isHidden) {
+        // 如果当前是隐藏的，则显示
+        form.style.display = 'block';
+        // 每次打开时，自动将日期设置为今天
+        document.getElementById('date').valueAsDate = new Date();
+    } else {
+        // 如果当前是显示的，则隐藏
+        form.style.display = 'none';
+    }
 }
 
     // 添加备忘录
@@ -179,10 +192,10 @@ function restore() {
     }
 }
 // 显示历史记录（列表区域）
-function showHistory() {
-    var list = document.getElementById('memoList');
-    restore();
-}
+// function showHistory() {
+//     var list = document.getElementById('memoList');
+//     restore();
+// }
 // 切换任务状态 (未完成 <-> 已完成)
 function toggleStatus(index) {
     var desc = sessionStorage.getItem('desc');
