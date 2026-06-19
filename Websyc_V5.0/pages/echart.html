@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据图表</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        body {
+            padding: 16px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 16px;
+        }
+
+        .chart-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .chart-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 360px;
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-container {
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="page-title">📊 数据可视化</h1>
+
+    <div class="charts-grid">
+        <!-- 基础折线图 -->
+        <div class="chart-card">
+            <div id="basicLine" class="chart-container"></div>
+        </div>
+
+        <!-- 堆叠折线图 -->
+        <div class="chart-card">
+            <div id="stackLine" class="chart-container"></div>
+        </div>
+
+        <!-- 区域面积图 -->
+        <div class="chart-card">
+            <div id="areaChart" class="chart-container"></div>
+        </div>
+
+        <!-- 基础饼图 -->
+        <div class="chart-card">
+            <div id="pieChart" class="chart-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // B站风格配色
+        const biliColors = {
+            blue: '#00A1D6',
+            pink: '#FB7299',
+            orange: '#FF6633',
+            green: '#4CAF50',
+            yellow: '#FFB027',
+            purple: '#9C27B0'
+        };
+
+        // 通用配置
+        const commonTextStyle = {
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif"
+        };
+
+        // 基础折线图
+        var basicLine = echarts.init(document.getElementById('basicLine'));
+        basicLine.setOption({
+            title: {
+                text: '2025年上半年月度销售额（万元）',
+                left: 'center',
+                textStyle: { ...commonTextStyle, fontSize: 15, fontWeight: 600, color: '#212121' }
+            },
+            tooltip: { trigger: 'axis' },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: {
+                type: 'category',
+                data: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                axisLine: { lineStyle: { color: '#E3E5E7' } },
+                axisLabel: { color: '#6D757A' }
+            },
+            yAxis: {
+                type: 'value',
+                axisLine: { show: false },
+                splitLine: { lineStyle: { color: '#F1F2F3' } },
+                axisLabel: { color: '#6D757A' }
+            },
+            series: [{
+                name: '销售额',
+                type: 'line',
+                data: [32, 28, 45, 68, 55, 82],
+                smooth: true,
+                symbolSize: 8,
+                lineStyle: { color: biliColors.blue, width: 3 },
+                itemStyle: { color: biliColors.blue },
+                areaStyle: {
+                    color: {
+                        type: 'linear',
+                        x: 0, y: 0, x2: 0, y2: 1,
+                        colorStops: [
+                            { offset: 0, color: 'rgba(0, 161, 214, 0.2)' },
+                            { offset: 1, color: 'rgba(0, 161, 214, 0.02)' }
+                        ]
+                    }
+                }
+            }]
+        });
+
+        // 堆叠折线图
+        var stackLine = echarts.init(document.getElementById('stackLine'));
+        stackLine.setOption({
+            title: {
+                text: '各产品线季度收入（万元）',
+                left: 'center',
+                textStyle: { ...commonTextStyle, fontSize: 15, fontWeight: 600, color: '#212121' }
+            },
+            tooltip: { trigger: 'axis' },
+            legend: {
+                data: ['产品A', '产品B', '产品C'],
+                top: 30,
+                textStyle: commonTextStyle
+            },
+            grid: { left: '3%', right: '4%', bottom: '3%', top: 60, containLabel: true },
+            xAxis: {
+                type: 'category',
+                data: ['Q1', 'Q2', 'Q3', 'Q4'],
+                axisLine: { lineStyle: { color: '#E3E5E7' } },
+                axisLabel: { color: '#6D757A' }
+            },
+            yAxis: {
+                type: 'value',
+                axisLine: { show: false },
+                splitLine: { lineStyle: { color: '#F1F2F3' } },
+                axisLabel: { color: '#6D757A' }
+            },
+            series: [
+                {
+                    name: '产品A', type: 'line', stack: 'Total', data: [20, 30, 45, 55],
+                    smooth: true, lineStyle: { color: biliColors.pink, width: 2 },
+                    itemStyle: { color: biliColors.pink },
+                    areaStyle: { color: 'rgba(251, 114, 153, 0.1)' }
+                },
+                {
+                    name: '产品B', type: 'line', stack: 'Total', data: [15, 25, 30, 40],
+                    smooth: true, lineStyle: { color: biliColors.blue, width: 2 },
+                    itemStyle: { color: biliColors.blue },
+                    areaStyle: { color: 'rgba(0, 161, 214, 0.1)' }
+                },
+                {
+                    name: '产品C', type: 'line', stack: 'Total', data: [10, 18, 22, 35],
+                    smooth: true, lineStyle: { color: biliColors.yellow, width: 2 },
+                    itemStyle: { color: biliColors.yellow },
+                    areaStyle: { color: 'rgba(255, 176, 39, 0.1)' }
+                }
+            ]
+        });
+
+        // 区域面积图
+        var areaChart = echarts.init(document.getElementById('areaChart'));
+        areaChart.setOption({
+            title: {
+                text: '近两年月均气温（℃）',
+                left: 'center',
+                textStyle: { ...commonTextStyle, fontSize: 15, fontWeight: 600, color: '#212121' }
+            },
+            tooltip: { trigger: 'axis' },
+            legend: {
+                data: ['2024年', '2025年'],
+                top: 30,
+                textStyle: commonTextStyle
+            },
+            grid: { left: '3%', right: '4%', bottom: '3%', top: 60, containLabel: true },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                axisLine: { lineStyle: { color: '#E3E5E7' } },
+                axisLabel: { color: '#6D757A' }
+            },
+            yAxis: {
+                type: 'value',
+                axisLine: { show: false },
+                splitLine: { lineStyle: { color: '#F1F2F3' } },
+                axisLabel: { color: '#6D757A' }
+            },
+            series: [
+                {
+                    name: '2024年', type: 'line', data: [1, 3, 8, 14, 20, 25, 28, 27, 22, 16, 9, 3],
+                    smooth: true, lineStyle: { color: biliColors.blue, width: 3 },
+                    itemStyle: { color: biliColors.blue },
+                    areaStyle: {
+                        color: {
+                            type: 'linear',
+                            x: 0, y: 0, x2: 0, y2: 1,
+                            colorStops: [
+                                { offset: 0, color: 'rgba(0, 161, 214, 0.2)' },
+                                { offset: 1, color: 'rgba(0, 161, 214, 0.02)' }
+                            ]
+                        }
+                    }
+                },
+                {
+                    name: '2025年', type: 'line', data: [0, 4, 10, 16, 22, 28, 31, 30, 24, 18, 11, 5],
+                    smooth: true, lineStyle: { color: biliColors.pink, width: 3 },
+                    itemStyle: { color: biliColors.pink },
+                    areaStyle: {
+                        color: {
+                            type: 'linear',
+                            x: 0, y: 0, x2: 0, y2: 1,
+                            colorStops: [
+                                { offset: 0, color: 'rgba(251, 114, 153, 0.2)' },
+                                { offset: 1, color: 'rgba(251, 114, 153, 0.02)' }
+                            ]
+                        }
+                    }
+                }
+            ]
+        });
+
+        // 基础饼图
+        var pieChart = echarts.init(document.getElementById('pieChart'));
+        pieChart.setOption({
+            title: {
+                text: '2025年Q4各品类销售占比',
+                left: 'center',
+                top: '5%',
+                textStyle: { ...commonTextStyle, fontSize: 15, fontWeight: 600, color: '#212121' }
+            },
+            tooltip: { trigger: 'item' },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                top: 'middle',
+                data: ['家电', '数码', '服装', '食品', '其他'],
+                textStyle: commonTextStyle
+            },
+            series: [{
+                name: '销售占比',
+                type: 'pie',
+                radius: ['40%', '70%'],
+                center: ['55%', '55%'],
+                avoidLabelOverlap: false,
+                itemStyle: {
+                    borderRadius: 8,
+                    borderColor: '#fff',
+                    borderWidth: 2
+                },
+                label: {
+                    show: true,
+                    formatter: '{b}\n{d}%',
+                    fontSize: 12
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                        fontSize: 14,
+                        fontWeight: 'bold'
+                    }
+                },
+                data: [
+                    { value: 85, name: '家电', itemStyle: { color: biliColors.blue } },
+                    { value: 62, name: '数码', itemStyle: { color: biliColors.pink } },
+                    { value: 48, name: '服装', itemStyle: { color: biliColors.green } },
+                    { value: 35, name: '食品', itemStyle: { color: biliColors.yellow } },
+                    { value: 20, name: '其他', itemStyle: { color: biliColors.purple } }
+                ]
+            }]
+        });
+
+        // 响应式调整
+        window.addEventListener('resize', function() {
+            basicLine.resize();
+            stackLine.resize();
+            areaChart.resize();
+            pieChart.resize();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+/* ========== B站风格 - 音乐播放器 ========== */
+body {
+    padding: 16px;
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--bg-primary);
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.page-header h1 {
+    font-size: 24px;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.page-header p {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* 音乐容器 */
+.music-container {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* 播放器区域 */
+.player-box {
+    flex: 1;
+    min-width: 300px;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--bg-white);
+    padding: 28px 20px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+/* 专辑封面 */
+.album-cover {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    transition: var(--transition);
+    position: relative;
+}
+
+.album-cover::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.album-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.album-cover.playing {
+    animation: spin 12s linear infinite;
+}
+
+.album-cover.playing::before {
+    opacity: 0;
+}
+
+/* 歌曲信息 */
+.song-info {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.song-info h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.song-info p {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* 进度条 */
+.progress-bar {
+    width: 100%;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.progress-bar input[type="range"] {
+    flex: 1;
+    height: 20px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+    margin: 0;
+}
+
+/* Chrome/Edge 轨道 */
+.progress-bar input[type="range"]::-webkit-slider-runnable-track {
+    height: 6px;
+    background: #E3E5E7;
+    border-radius: 3px;
+}
+
+/* Chrome/Edge 滑块 */
+.progress-bar input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--bili-blue);
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -6px;
+}
+
+.progress-bar input[type="range"]::-webkit-slider-thumb:hover {
+    background: var(--bili-blue-dark);
+    transform: scale(1.2);
+}
+
+/* Firefox 轨道 */
+.progress-bar input[type="range"]::-moz-range-track {
+    height: 6px;
+    background: #E3E5E7;
+    border-radius: 3px;
+    border: none;
+}
+
+/* Firefox 滑块 */
+.progress-bar input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: var(--bili-blue);
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
+
+/* 时间显示 */
+.progress-time {
+    font-size: 11px;
+    color: var(--text-secondary);
+    min-width: 36px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* 控制按钮 */
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.controls button {
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F1F2F3;
+    color: var(--text-primary);
+}
+
+.controls button:hover {
+    background: #E3E5E7;
+}
+
+.controls button.play-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 22px;
+    background: var(--bili-blue);
+    color: white;
+}
+
+.controls button.play-icon:hover {
+    background: var(--bili-blue-dark);
+}
+
+/* 播放列表 */
+.playlist {
+    flex: 1;
+    min-width: 260px;
+    background: var(--bg-white);
+    padding: 20px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.playlist h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #F1F2F3;
+}
+
+.playlist ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.playlist li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 13px;
+    color: var(--text-regular);
+}
+
+.playlist li:hover {
+    background: #F6F7F8;
+}
+
+.playlist li.active {
+    background: rgba(0, 161, 214, 0.08);
+    color: var(--bili-blue);
+    font-weight: 500;
+}
+
+.playlist li .song-num {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #F1F2F3;
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.playlist li.active .song-num {
+    background: var(--bili-blue);
+    color: white;
+}
+
+.playlist li .song-details {
+    flex: 1;
+}
+
+.playlist li .song-name {
+    display: block;
+    font-weight: 500;
+    color: var(--text-primary);
+    font-size: 13px;
+}
+
+.playlist li .song-artist {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+/* 页脚 */
+.page-footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 12px;
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .music-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .player-box,
+    .playlist {
+        max-width: 100%;
+    }
+
+    .album-cover {
+        width: 160px;
+        height: 160px;
+    }
+}

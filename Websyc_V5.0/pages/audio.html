@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的音乐空间</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/music.css">
+</head>
+<body>
+    <header class="page-header">
+        <h1>🎵 我的音乐空间</h1>
+        <p>享受音乐，放松心情</p>
+    </header>
+
+    <audio id="myAudio" preload="auto"></audio>
+
+    <main class="music-container">
+        <!-- 播放器UI区 -->
+        <section class="player-box">
+            <div class="album-cover" id="albumCover">
+                <img src="../assets/images/yeqiu.jpg" alt="专辑封面" id="coverImg">
+            </div>
+            <div class="song-info">
+                <h2 id="songTitle">夜曲</h2>
+                <p id="artistName">周杰伦</p>
+            </div>
+            <!-- 进度条 -->
+            <div class="progress-bar">
+                <span class="progress-time" id="currentTime">00:00</span>
+                <input type="range" id="seekBar" value="0" min="0" max="100" step="1">
+                <span class="progress-time" id="totalTime">00:00</span>
+            </div>
+            <!-- 控制按钮 -->
+            <div class="controls">
+                <button id="prevBtn">⏮</button>
+                <button id="playBtn" class="play-icon">▶</button>
+                <button id="nextBtn">⏭</button>
+            </div>
+        </section>
+
+        <!-- 歌曲列表区 -->
+        <aside class="playlist">
+            <h3>🎶 播放列表</h3>
+            <ul id="songList">
+                <li class="active"
+                    data-src="../assets/audio/yeqiu.mp3"
+                    data-cover="../assets/images/yeqiu.jpg"
+                    data-title="夜曲"
+                    data-artist="周杰伦">
+                    <span class="song-num">1</span>
+                    <div class="song-details">
+                        <span class="song-name">夜曲</span>
+                        <span class="song-artist">周杰伦</span>
+                    </div>
+                </li>
+                <li data-src="../assets/audio/daoxiang.mp3"
+                    data-cover="../assets/images/daoxiang.jpg"
+                    data-title="稻香"
+                    data-artist="周杰伦">
+                    <span class="song-num">2</span>
+                    <div class="song-details">
+                        <span class="song-name">稻香</span>
+                        <span class="song-artist">周杰伦</span>
+                    </div>
+                </li>
+                <li data-src="../assets/audio/qingtian.mp3"
+                    data-cover="../assets/images/qingtian.jpg"
+                    data-title="晴天"
+                    data-artist="周杰伦">
+                    <span class="song-num">3</span>
+                    <div class="song-details">
+                        <span class="song-name">晴天</span>
+                        <span class="song-artist">周杰伦</span>
+                    </div>
+                </li>
+            </ul>
+        </aside>
+    </main>
+
+    <script src="../js/music.js"></script>
+</body>
+</html>

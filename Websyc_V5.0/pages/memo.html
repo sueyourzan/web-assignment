@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>备忘录</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/memo.css">
+    <script src="../js/utils.js"></script>
+</head>
+<body>
+    <h1 class="page-title">📝 备忘录</h1>
+
+    <!-- 顶部区域 -->
+    <div class="header-bar">
+        <span id="todayDisplay" class="date-info">加载中...</span>
+        <button class="btn-add" onclick="showForm()">添加备忘录</button>
+    </div>
+
+    <!-- 表单区域 -->
+    <form id="form1" class="memo-form">
+        <div class="form-group">
+            <label>📅 日期</label>
+            <input type="date" id="date" />
+        </div>
+
+        <div class="form-group">
+            <label>📝 备忘录内容</label>
+            <input type="text" placeholder="请输入备忘录信息" id="title" />
+        </div>
+
+        <div class="form-group">
+            <label>⭐ 重要性</label>
+            <div class="radio-group">
+                <label><input type="radio" name="level" value="high" checked> 重要</label>
+                <label><input type="radio" name="level" value="normal"> 普通</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>✅ 状态</label>
+            <div class="radio-group">
+                <label><input type="radio" name="done" value="false" checked> 未完成</label>
+                <label><input type="radio" name="done" value="true"> 已完成</label>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <input type="button" id="sureBtn" value="确定" onclick="addMemo()"/>
+            <input type="reset" value="重置"/>
+        </div>
+    </form>
+
+    <!-- 列表显示区域 -->
+    <ul id="memoList" class="memo-list">
+        <!-- JS 渲染列表 -->
+    </ul>
+
+<script>
+// 页面加载完成后执行
+document.addEventListener('DOMContentLoaded', function() {
+    displayToday();
+    loadMemos();
+});
+
+// 显示今天的星期
+function displayToday() {
+    const today = new Date();
+    const weekStr = getWeek(today);
+    document.getElementById('todayDisplay').innerHTML =
+        `<span class="text">今天是</span> <strong>${weekStr}</strong>`;
+}
+
+// 显示/隐藏表单
+function showForm() {
+    var form = document.getElementById('form1');
+    var isHidden = window.getComputedStyle(form).display === 'none';
+
+    if (isHidden) {
+        form.style.display = 'block';
+        document.getElementById('date').valueAsDate = new Date();
+    } else {
+        form.style.display = 'none';
+    }
+}
+
+// 添加备忘录
+function addMemo() {
+    var date = document.getElementById('date').value;
+    var desc = document.getElementById('title').value;
+    var important = document.querySelector('input[name="level"]:checked').value;
+    var done = document.querySelector('input[name="done"]:checked').value;
+
+    if(!date || !desc) {
+        alert("请填写完整信息！");
+        return;
+    }
+
+    var json = {
+        date: date,
+        desc: desc,
+        important: important,
+        done: done
+    };
+
+    saveStorage(json);
+    restore();
+
+    document.getElementById('form1').reset();
+    document.getElementById('form1').style.display = 'none';
+}
+
+// 保存数据到 sessionStorage
+function saveStorage(newItem) {
+    var item = sessionStorage.getItem('desc');
+    var data = [];
+
+    if (item) {
+        data = JSON.parse(item);
+    }
+
+    data.push(newItem);
+    sessionStorage.setItem('desc', JSON.stringify(data));
+}
+
+// 加载备忘录
+function loadMemos() {
+    restore();
+}
+
+// 从 sessionStorage 恢复并显示数据
+function restore() {
+    var desc = sessionStorage.getItem('desc');
+    var ul = document.getElementById('memoList');
+    ul.innerHTML = '';
+
+    if (!desc) {
+        ul.innerHTML = '<li class="empty-state"><div class="icon">📋</div><p>暂无备忘录，点击上方按钮添加</p></li>';
+        return;
+    }
+
+    var items = JSON.parse(desc);
+
+    if (items.length === 0) {
+        ul.innerHTML = '<li class="empty-state"><div class="icon">📋</div><p>暂无备忘录，点击上方按钮添加</p></li>';
+        return;
+    }
+
+    for (let i = 0; i < items.length; i++) {
+        let item = items[i];
+        if (!item || !item.desc) continue;
+
+        var li = document.createElement('li');
+        li.className = 'memo-item';
+
+        if (item.done === 'true') {
+            li.classList.add('done');
+        }
+
+        var importantBadge = item.important === 'high'
+            ? '<span class="badge badge-important">重要</span>'
+            : '<span class="badge badge-normal">普通</span>';
+
+        var statusBadge = item.done === 'true'
+            ? '<span class="badge badge-done">已完成</span>'
+            : '<span class="badge badge-todo">未完成</span>';
+
+        li.innerHTML = `
+            <span class="memo-date">${item.date}</span>
+            <span class="memo-desc">${item.desc}</span>
+            <div class="memo-badges">
+                ${importantBadge}
+                ${statusBadge}
+            </div>
+        `;
+
+        li.onclick = function() {
+            toggleStatus(i);
+        };
+
+        ul.appendChild(li);
+    }
+}
+
+// 切换任务状态
+function toggleStatus(index) {
+    var desc = sessionStorage.getItem('desc');
+    if (!desc) return;
+
+    var items = JSON.parse(desc);
+    var currentItem = items[index];
+
+    if (currentItem.done === 'true') {
+        currentItem.done = 'false';
+    } else {
+        currentItem.done = 'true';
+    }
+
+    sessionStorage.setItem('desc', JSON.stringify(items));
+    restore();
+}
+</script>
+
+</body>
+</html>

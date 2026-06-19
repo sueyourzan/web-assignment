@@ -1,0 +1,99 @@
+/* ========== B站风格 - 课程简介 ========== */
+body {
+    padding: 16px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* 课程简介卡片 */
+.intro-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.intro-card p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+.intro-card p:last-child {
+    margin-bottom: 0;
+}
+
+/* 首字稍大，与文本对齐 */
+.intro-card .drop-cap::first-letter {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--bili-blue);
+}
+
+/* 高亮文字 */
+.intro-card em,
+.intro-card i {
+    font-style: normal;
+    color: var(--bili-blue);
+    font-weight: 500;
+    padding: 1px 4px;
+    background: rgba(0, 161, 214, 0.08);
+    border-radius: 3px;
+}
+
+.intro-card code {
+    font-family: 'Courier New', monospace;
+    background: rgba(0, 161, 214, 0.08);
+    color: var(--bili-blue-dark);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 13px;
+}
+
+/* 课程亮点网格 */
+.course-highlights {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.highlight-item {
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    text-align: center;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.highlight-item:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.highlight-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.highlight-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.highlight-desc {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .course-highlights {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

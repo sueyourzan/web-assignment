@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程表</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/schedule.css">
+</head>
+<body>
+    <h1 class="page-title">📅 课程表</h1>
+
+    <div class="schedule-container">
+        <table class="schedule-table">
+            <colgroup>
+                <col style="width: 80px;">
+                <col style="width: 80px;">
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+            </colgroup>
+
+            <thead>
+                <tr>
+                    <th colspan="2">节 次</th>
+                    <th>星期一</th>
+                    <th>星期二</th>
+                    <th>星期三</th>
+                    <th>星期四</th>
+                    <th>星期五</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td rowspan="2" class="time-label">上午</td>
+                    <td class="period-label">第一二节</td>
+                    <td class="course-computer">计算机组成原理<b>3A512</b></td>
+                    <td class="course-java">Java语言课程设计<b>工A103</b></td>
+                    <td class="course-java">Java语言课程设计<b>工A103</b></td>
+                    <td class="course-database">数据库原理与应用<b>3A216</b></td>
+                    <td class="course-math">离散数学<b>3A216</b></td>
+                </tr>
+
+                <tr>
+                    <td class="period-label">第三四节</td>
+                    <td class="course-java">Java语言课程设计<b>工A103</b></td>
+                    <td class="course-web">Web技术基础<b>工A306</b></td>
+                    <td class="course-math">离散数学<b>3A216</b></td>
+                    <td class="course-web">Web技术基础<b>工A306</b></td>
+                    <td class="course-java">Java语言课程设计<b>工A103</b></td>
+                </tr>
+
+                <tr>
+                    <td rowspan="2" class="time-label">下午</td>
+                    <td class="period-label">第五六节</td>
+                    <td class="course-database">数据库原理与应用<b>3A216</b></td>
+                    <td class="course-history">中国近现代史纲要<b>1B107</b></td>
+                    <td class="course-empty">—</td>
+                    <td class="course-empty">—</td>
+                    <td class="course-history">中国近现代史纲要<b>1B107</b></td>
+                </tr>
+
+                <tr>
+                    <td class="period-label">第七八节</td>
+                    <td class="course-database">数据库原理与应用<b>3A216</b></td>
+                    <td class="course-history">中国近现代史纲要<b>1B107</b></td>
+                    <td class="course-empty">—</td>
+                    <td class="course-empty">—</td>
+                    <td class="course-history">中国近现代史纲要<b>1B107</b></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="course-info" id="course-info">
+        👆 点击课程查看详情
+    </div>
+
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-color" style="background: linear-gradient(135deg, #FF6B6B, #EE5A24);"></div>
+            <span>计算机组成原理</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: linear-gradient(135deg, #4ECDC4, #2ECC71);"></div>
+            <span>Java语言课程设计</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: linear-gradient(135deg, #4A6CF7, #6B8AFF);"></div>
+            <span>Web技术基础</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: linear-gradient(135deg, #F59E0B, #F97316);"></div>
+            <span>数据库原理与应用</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: linear-gradient(135deg, #EC4899, #F472B6);"></div>
+            <span>离散数学</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: linear-gradient(135deg, #8B5CF6, #A78BFA);"></div>
+            <span>中国近现代史纲要</span>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const infoDiv = document.getElementById('course-info');
+
+            document.querySelector('tbody').addEventListener('click', function(e) {
+                const target = e.target.closest('td');
+
+                if (target && target.innerText.trim() !== '' && !target.classList.contains('course-empty')) {
+                    // 从课程单元格中提取课程名称
+                    let courseName = target.innerText.split('\n')[0].trim();
+
+                    // 课程简介映射
+                    const courseInfo = {
+                        '计算机组成原理': '研究计算机系统各组成部分的组成原理和设计方法，包括数据表示、运算器、控制器、存储器等。',
+                        'Java语言课程设计': '通过项目实践掌握Java面向对象编程、GUI设计、数据库连接等核心技能。',
+                        'Web技术基础': '学习HTML5、CSS3、JavaScript等前端技术，掌握网页设计与开发基础。',
+                        '数据库原理与应用': '学习关系数据库理论、SQL语言、数据库设计与优化等核心知识。',
+                        '离散数学': '学习数理逻辑、集合论、图论、代数结构等计算机科学的数学基础。',
+                        '中国近现代史纲要': '了解中国近现代历史发展进程，培养历史思维和爱国情怀。'
+                    };
+
+                    const info = courseInfo[courseName] || '暂无课程简介';
+                    infoDiv.innerHTML = `<strong>${courseName}</strong><br><span style="font-weight:400;font-size:14px;">${info}</span>`;
+                    infoDiv.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

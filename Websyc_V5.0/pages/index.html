@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web技术基础 - 课程学习平台</title>
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <script src="../js/utils.js"></script>
+</head>
+<body>
+    <div class="header">
+        <h2>📚 2025-2026 学期课程学习平台</h2>
+    </div>
+
+    <nav class="nav">
+        <a href="introduce.html" target="mainFrame" class="active">📖 课程简介</a>
+        <a href="schedule.html" target="mainFrame">📅 课程表</a>
+        <a href="book.html" target="mainFrame">📚 教材</a>
+        <a href="memo.html" target="mainFrame">📝 备忘录</a>
+        <a href="echart.html" target="mainFrame">📊 数据图表</a>
+        <a href="audio.html" target="mainFrame">🎵 音乐空间</a>
+        <a href="game.html" target="mainFrame">🎮 小游戏</a>
+        <div class="time">
+            <span id="current-time"></span>
+        </div>
+    </nav>
+
+    <iframe
+        src="introduce.html"
+        name="mainFrame"
+        id="mainFrame"
+        class="mainFrame">
+    </iframe>
+
+    <footer class="footer">
+        <div>&copy; 闽江学院 · 计算机和大数据学院 · 人工智能</div>
+        <div>联系人：<strong>苏友灿</strong> &nbsp;|&nbsp; 学号：<strong>3232707221</strong></div>
+    </footer>
+
+    <script>
+        // 导航高亮
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav a');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // iframe加载时更新导航
+            const iframe = document.getElementById('mainFrame');
+            iframe.addEventListener('load', function() {
+                const currentSrc = iframe.contentWindow.location.pathname.split('/').pop();
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === currentSrc) {
+                        navLinks.forEach(l => l.classList.remove('active'));
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // 自动调整iframe高度
+        function autoResize() {
+            if (parent && parent.document.getElementById("mainFrame")) {
+                var iframe = parent.document.getElementById("mainFrame");
+                var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+                iframe.style.height = Math.max(scrollHeight, 500) + "px";
+            }
+        }
+        window.onload = autoResize;
+        window.onresize = autoResize;
+    </script>
+</body>
+</html>

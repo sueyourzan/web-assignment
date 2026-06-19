@@ -1,0 +1,200 @@
+/* ========== B站风格 - 课表 ========== */
+body {
+    padding: 16px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* 课表容器 */
+.schedule-container {
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* 课表表格 */
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.schedule-table thead th {
+    background: var(--bili-blue);
+    color: white;
+    padding: 12px 8px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    border: none;
+}
+
+.schedule-table tbody td {
+    padding: 10px 6px;
+    text-align: center;
+    border: 1px solid #F1F2F3;
+    font-size: 12px;
+    transition: var(--transition);
+    vertical-align: middle;
+    line-height: 1.5;
+}
+
+.schedule-table tbody td:hover {
+    background: #F6F7F8;
+}
+
+.schedule-table tbody td b {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    opacity: 0.8;
+    margin-top: 2px;
+}
+
+/* 节次列 */
+.schedule-table .time-label {
+    background: #F6F7F8;
+    font-weight: 500;
+    color: var(--text-regular);
+    font-size: 12px;
+    width: 60px;
+}
+
+.schedule-table .period-label {
+    background: #FAFAFA;
+    font-weight: 400;
+    color: var(--text-secondary);
+    font-size: 12px;
+    width: 70px;
+}
+
+/* 课程颜色 - B站风格渐变 */
+.course-computer {
+    background: linear-gradient(135deg, #FB7299, #FF9AB5);
+    color: white;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.course-java {
+    background: linear-gradient(135deg, #00A1D6, #23ADE5);
+    color: white;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.course-web {
+    background: linear-gradient(135deg, #FF6633, #FF8F66);
+    color: white;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.course-database {
+    background: linear-gradient(135deg, #FFB027, #FFCF70);
+    color: white;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.course-math {
+    background: linear-gradient(135deg, #4CAF50, #81C784);
+    color: white;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.course-history {
+    background: linear-gradient(135deg, #9C27B0, #BA68C8);
+    color: white;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.course-empty {
+    background: #FAFAFA;
+    color: #E3E5E7;
+}
+
+/* 课程信息提示 */
+.course-info {
+    margin-top: 16px;
+    padding: 14px 20px;
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-secondary);
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.course-info.active {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.course-info strong {
+    color: var(--bili-blue);
+}
+
+.course-info a {
+    color: var(--bili-blue);
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid var(--bili-blue);
+    padding-bottom: 1px;
+}
+
+/* 图例 */
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 16px;
+    padding: 14px;
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-regular);
+}
+
+.legend-color {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .schedule-table tbody td {
+        padding: 8px 4px;
+        font-size: 11px;
+    }
+
+    .schedule-table tbody td b {
+        font-size: 10px;
+    }
+
+    .legend {
+        gap: 10px;
+    }
+
+    .legend-item {
+        font-size: 11px;
+    }
+}

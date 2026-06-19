@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>记忆翻牌游戏</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/game.css">
+</head>
+<body>
+    <header class="page-header">
+        <h1>🎮 记忆翻牌大挑战</h1>
+        <p>翻开卡牌，找到所有配对！</p>
+    </header>
+
+    <main class="game-container">
+        <div class="stats">
+            <span>步数: <strong id="moves">0</strong></span>
+            <span>时间: <strong id="timer">0</strong>秒</span>
+            <button id="restartBtn">🔄 重新开始</button>
+        </div>
+
+        <!-- 4x4 卡牌网格 -->
+        <div class="card-grid" id="cardGrid">
+            <!-- JS 动态生成卡牌 -->
+        </div>
+    </main>
+
+    <script src="../js/game.js"></script>
+</body>
+</html>
