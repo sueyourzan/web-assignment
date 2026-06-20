@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>备忘录</title>
+    <link rel="stylesheet" href="css/memo.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script src="js/utils.js"></script>
+</head>
+<body>
+    
+     <!-- 顶部区域：所有元素都放在这里 -->
+    <div class="header-bar">
+        <h3>备忘录：</h3>
+        <span id="todayDisplay" class="date-info">加载中...</span>
+        <button class="btn-add" onclick="showForm()">添加备忘录</button>
+    </div>
+    
+     <!-- 表单区域 (默认隐藏) -->
+    <form id="form1" class="memo-form">
+        <div class="form-group">
+            <label>日期：</label>
+            <input type="date" id="date" />
+        </div>
+        
+        <div class="form-group">
+            <label>备忘录：</label>
+            <input type="text" placeholder="请输入备忘录信息" id="title" />
+        </div>
+
+        <div class="form-group radio-group">
+            <label>重要性：</label>
+            <input type="radio" name="level" value="high" checked> 重要
+            <input type="radio" name="level" value="normal"> 普通
+        </div>
+
+        <div class="form-group radio-group">
+            <!-- <label>状态：</label> -->
+            <input type="radio" name="done" value="false" checked> 未完成
+            <input type="radio" name="done" value="true"> 已完成
+        </div>
+
+        <div class="btn-group">
+            <input type="button" id="sureBtn" value="确定" onclick="addMemo()"/>
+            <input type="reset" value="重置"/>
+        </div>
+    </form>
+
+    <!-- 列表显示区域 -->
+    <ul id="memoList" class="memo-list">
+        <!-- JS 渲染列表 -->
+    </ul>
+
+<script>
+// 页面加载完成后执行
+document.addEventListener('DOMContentLoaded', function() {
+    displayToday();
+    loadMemos();
+});
+
+// 显示今天的星期
+function displayToday() {
+    const today = new Date();
+    const weekStr = getWeek(today);
+    
+document.getElementById('todayDisplay').innerHTML = 
+        `<span class="text">今天是</span>${weekStr}`;
+}
+
+// 修改后的 showForm 函数
+function showForm() {
+    var form = document.getElementById('form1');
+    
+    // 获取当前的显示状态
+    // 注意：如果 CSS 中设置的是 display: none，这里获取到的可能是空字符串，需要兼容处理
+    var isHidden = window.getComputedStyle(form).display === 'none';
+
+    if (isHidden) {
+        // 如果当前是隐藏的，则显示
+        form.style.display = 'block';
+        // 每次打开时，自动将日期设置为今天
+        document.getElementById('date').valueAsDate = new Date();
+    } else {
+        // 如果当前是显示的，则隐藏
+        form.style.display = 'none';
+    }
+}
+
+    // 添加备忘录
+function addMemo() {
+    // 1. 获取表单数据
+    var date = document.getElementById('date').value;
+    var desc = document.getElementById('title').value; 
+    var important = document.querySelector('input[name="level"]:checked').value;
+    var done = document.querySelector('input[name="done"]:checked').value;
+
+     //在控制台验证获取的值
+    console.log("当前选择的重要性:", important);
+    console.log("当前选择的状态:", done);
+
+    if(!date || !desc) {
+        alert("请填写完整信息！");
+        return;
+    }
+
+    // 2. 组装 JSON 对象
+    var json = {
+        date: date,
+        desc: desc,
+        important: important,
+        done: done
+    };
+
+    // 3. 保存数据
+    saveStorage(json);
+    
+    // 4. 刷新列表
+    restore();
+
+    // 5. 可选：清空表单
+    document.getElementById('form1').reset();
+    
+    document.getElementById('form1').style.display = 'none'; 
+}
+
+// 保存数据到 sessionStorage
+function saveStorage(newItem) {
+    var item = sessionStorage.getItem('desc');
+    var data = [];
+    
+    // 如果已有数据，解析出来
+    if (item) {
+        data = JSON.parse(item);
+    }
+    
+    // 将新数据推入数组
+    data.push(newItem);
+    
+    // 存回 sessionStorage
+    sessionStorage.setItem('desc', JSON.stringify(data));
+}
+ 
+// 从 sessionStorage 恢复并显示数据
+function restore() {
+    var desc = sessionStorage.getItem('desc');
+    var ul = document.getElementById('memoList');
+    ul.innerHTML = ''; // 清空列表
+
+    if (!desc) return;
+
+    var items = JSON.parse(desc);
+    
+    for (let i = 0; i < items.length; i++) {
+        let item = items[i];
+        if (!item || !item.desc) continue;
+
+        var li = document.createElement('li');
+        
+        // 1. 设置整行样式：如果是已完成，给 li 加上 done 类 (变灰)
+        if (item.done === 'true') {
+            li.classList.add('done');
+        }
+
+        // 2. 拼接内容
+        var contentHtml = `<span class="date">${item.date}</span>&nbsp;&nbsp;${item.desc}`;
+
+        // 3. 重要性样式
+        if (item.important === 'high') {
+            contentHtml += ` <span>重要</span>`;
+        } else {
+            contentHtml += ` <span>普通</span>`;
+        }
+
+        // 4. 状态样式 (关键修改)
+        // 如果是已完成，文字变灰加删除线；如果是未完成，文字变红
+        if (item.done === 'true') {
+            contentHtml += ` <span>已完成</span>`;
+        } else {
+            contentHtml += ` <span>未完成</span>`;
+        }
+
+        li.innerHTML = contentHtml;
+
+        // 5. 添加点击事件：点击这一行，切换状态
+        li.onclick = function() {
+            toggleStatus(i); // 传入当前条目的索引
+        };
+
+        ul.appendChild(li);
+    }
+}
+// 显示历史记录（列表区域）
+// function showHistory() {
+//     var list = document.getElementById('memoList');
+//     restore();
+// }
+// 切换任务状态 (未完成 <-> 已完成)
+function toggleStatus(index) {
+    var desc = sessionStorage.getItem('desc');
+    if (!desc) return;
+
+    var items = JSON.parse(desc);
+
+    // 获取被点击的那一条数据
+    var currentItem = items[index];
+
+    // 切换状态逻辑
+    if (currentItem.done === 'true') {
+        currentItem.done = 'false'; // 改为未完成
+    } else {
+        currentItem.done = 'true';  // 改为已完成
+    }
+
+    // 重新保存回 sessionStorage
+    sessionStorage.setItem('desc', JSON.stringify(items));
+
+    // 重新渲染列表以显示变化
+    restore();
+}
+</script>
+
+</body>
+</html>

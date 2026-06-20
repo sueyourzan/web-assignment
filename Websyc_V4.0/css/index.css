@@ -1,0 +1,70 @@
+.mainFrame
+{
+    width: 100%;
+    min-height: 2200px;
+    border: none;
+    overflow: hidden;
+    background-color: aquamarine;
+    display: block;
+    padding: 20px;
+}
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.header
+{
+    text-align: center;
+    padding: 15px 0;
+    color: blue;
+}
+.time
+{
+    color: red;
+    font-size: 20px;
+    margin-left: auto;        
+    padding-right: 20px; 
+}
+.nav
+{
+    color: blue;
+    display: flex;
+    align-items: center; 
+    justify-content: flex-start;
+    padding: 5px 5px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background:url(../images/top-bg.gif) center/cover;
+    z-index: 100;
+}
+.nav a
+{
+    color: blue;
+    padding: 5px 10px;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+    text-decoration: underline;
+    font-size: 20px;
+}
+.nav a:hover
+{
+    color:red;
+    font-size: 25px;
+    text-decoration: underline;
+}
+.footer 
+{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: #ff00ff;
+    padding: 10px 0;
+    font-size: 15px;
+    background:url(../images/top-bg.gif) center/cover;
+    z-index: 100;
+    height: 50px;
+}

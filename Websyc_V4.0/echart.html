@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据图表</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        h3 {
+            text-align: center;
+            margin: 20px 0 30px;
+            font-size: 22px;
+        }
+
+        .charts-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 0 20px 40px;
+        }
+
+        .chart-card {
+            width: 48%;
+            max-width: 700px;
+            min-width: 500px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 420px;
+        }
+
+        /* 小屏：1列 */
+        @media (max-width: 799px) {
+            .chart-card {
+                width: 100%;
+                min-width: 0;
+                padding: 12px;
+            }
+            .chart-container { height: 320px; }
+        }
+    </style>
+</head>
+<body>
+    <h3>数据图表</h3>
+
+    <div class="charts-grid">
+        <!-- 1. 基础折线图 -->
+        <div class="chart-card">
+            <div id="basicLine" class="chart-container"></div>
+        </div>
+
+        <!-- 2. 堆叠折线图 -->
+        <div class="chart-card">
+            <div id="stackLine" class="chart-container"></div>
+        </div>
+
+        <!-- 3. 区域面积图 -->
+        <div class="chart-card">
+            <div id="areaChart" class="chart-container"></div>
+        </div>
+
+        <!-- 4. 基础饼图 -->
+        <div class="chart-card">
+            <div id="pieChart" class="chart-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // 基础折线图
+        var basicLine = echarts.init(document.getElementById('basicLine'));
+        basicLine.setOption({
+            title: { text: '2025年上半年月度销售额（万元）', left: 'center' },
+            tooltip: { trigger: 'axis' },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: {
+                type: 'category',
+                data: ['1月', '2月', '3月', '4月', '5月', '6月']
+            },
+            yAxis: { type: 'value' },
+            series: [{
+                name: '销售额',
+                type: 'line',
+                data: [32, 28, 45, 68, 55, 82],
+                lineStyle: { color: '#409EFF' }
+            }]
+        });
+
+        // 堆叠折线图
+        var stackLine = echarts.init(document.getElementById('stackLine'));
+        stackLine.setOption({
+            title: { text: '各产品线季度收入（万元）', left: 'center' },
+            tooltip: { trigger: 'axis' },
+            legend: {
+                data: ['产品A', '产品B', '产品C'],
+                top: '5%',
+                right: '10%'
+            },
+            grid: { left: '3%', right: '4%', bottom: '3%', top: 50, containLabel: true },
+            xAxis: {
+                type: 'category',
+                data: ['Q1', 'Q2', 'Q3', 'Q4']
+            },
+            yAxis: { type: 'value' },
+            series: [
+                { name: '产品A', type: 'line', stack: 'Total', data: [20, 30, 45, 55], lineStyle: { color: '#FF6B6B' } },
+                { name: '产品B', type: 'line', stack: 'Total', data: [15, 25, 30, 40], lineStyle: { color: '#4ECDC4' } },
+                { name: '产品C', type: 'line', stack: 'Total', data: [10, 18, 22, 35], lineStyle: { color: '#FFD166' } }
+            ]
+        });
+
+        // 区域面积图
+        var areaChart = echarts.init(document.getElementById('areaChart'));
+        areaChart.setOption({
+            title: { text: '近两年月均气温（℃）', left: 'center' },
+            tooltip: { trigger: 'axis' },
+            legend: {
+                data: ['2024年', '2025年'],
+                top: '5%',
+                right: '10%'
+            },
+            grid: { left: '3%', right: '4%', bottom: '3%', top: 50, containLabel: true },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+            },
+            yAxis: { type: 'value' },
+            series: [
+                {
+                    name: '2024年',
+                    type: 'line',
+                    areaStyle: { color: 'rgba(74, 144, 226, 0.3)' },
+                    data: [1, 3, 8, 14, 20, 25, 28, 27, 22, 16, 9, 3],
+                    lineStyle: { color: '#4A90E2' }
+                },
+                {
+                    name: '2025年',
+                    type: 'line',
+                    areaStyle: { color: 'rgba(255, 107, 107, 0.3)' },
+                    data: [0, 4, 10, 16, 22, 28, 31, 30, 24, 18, 11, 5],
+                    lineStyle: { color: '#FF6B6B' }
+                }
+            ]
+        });
+
+        // 基础饼图
+        var pieChart = echarts.init(document.getElementById('pieChart'));
+        pieChart.setOption({
+            title: {
+                text: '2025年Q4各品类销售占比',
+                left: 'center',
+                top: '5%'
+            },
+            tooltip: { trigger: 'item' },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['家电', '数码', '服装', '食品', '其他']
+            },
+            series: [{
+                name: '销售占比',
+                type: 'pie',
+                radius: '55%',
+                center: ['55%', '55%'],
+                data: [
+                    { value: 85, name: '家电', itemStyle: { color: '#409EFF' } },
+                    { value: 62, name: '数码', itemStyle: { color: '#F56C6C' } },
+                    { value: 48, name: '服装', itemStyle: { color: '#67C23A' } },
+                    { value: 35, name: '食品', itemStyle: { color: '#E6A23C' } },
+                    { value: 20, name: '其他', itemStyle: { color: '#909399' } }
+                ],
+                label: {
+                    show: true,
+                    formatter: '{b}: {d}%'
+                }
+            }]
+        });
+
+        // 响应式调整
+        window.addEventListener('resize', function() {
+            basicLine.resize();
+            stackLine.resize();
+            areaChart.resize();
+            pieChart.resize();
+        });
+
+        window.onload = function() {
+            basicLine.resize();
+            stackLine.resize();
+            areaChart.resize();
+            pieChart.resize();
+        };
+    </script>
+</body>
+</html>

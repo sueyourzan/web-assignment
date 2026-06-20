@@ -3,130 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <title>web技术基础实验V4.0</title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <script src="js/utils.js"></script>
 </head>
 <body>
-    <h2>web技术基础实验V4.0</h2>
-    <!-- 1. 基础折线图 -->
-    <div id="basicLine" style="width: 800px;height:400px;margin:20px 0;"></div>
+    <a name="top"></a>
+
+    <div class="header">
+        <h2>2025-2026学期课程情况</h2>
+    </div>
+
+    <div class="nav">
+        <a href="introduce.html" target="mainFrame">课程简介</a>
+        <a href="schedule.html" target="mainFrame">课表</a>
+        <a href="book.html" target="mainFrame">教材</a>
+        <a href="memo.html" target="mainFrame">备忘录</a>
+        <a href="echart.html" target="mainFrame">数据图表</a>
+        <div class="time">
+            <span id="current-time"></span>
+        </div>
+    </div>
+
+    <iframe 
+        src="introduce.html"
+        name="mainFrame"
+        id="mainFrame"
+        class="mainFrame">
+    </iframe>
+
     
-    <!-- 2. 堆叠折线图 -->
-    <div id="stackLine" style="width: 800px;height:400px;margin:20px 0;"></div>
-    
-    <!-- 3. 区域面积图 -->
-    <div id="areaChart" style="width: 800px;height:400px;margin:20px 0;"></div>
-    
-    <!-- 4. 基础饼图 -->
-    <div id="pieChart" style="width: 800px;height:400px;margin:20px 0;"></div>
+    <div class="footer">
+        &copy;闽江学院&nbsp;&nbsp;计算机和大数据学院&trade;软件工程<br>
+        联系人：苏友灿 &nbsp;&nbsp; 学号：3232707221
+    </div>
 
-    <script>
-        //基础折线图
-        var basicLine = echarts.init(document.getElementById('basicLine'));
-        basicLine.setOption({
-            title: { text: '2025年上半年月度销售额（万元）', left: 'center' },
-            tooltip: { trigger: 'axis' },
-            xAxis: {
-                type: 'category',
-                data: ['1月', '2月', '3月', '4月', '5月', '6月']
-            },
-            yAxis: { type: 'value' },
-            series: [{
-                name: '销售额',
-                type: 'line',
-                data: [32, 28, 45, 68, 55, 82],
-                lineStyle: { color: '#409EFF' }
-            }]
-        });
-
-        //堆叠折线图
-        var stackLine = echarts.init(document.getElementById('stackLine'));
-        stackLine.setOption({
-            title: { text: '各产品线季度收入（万元）', left: 'center' },
-            tooltip: { trigger: 'axis' },
-            legend: { 
-                data: ['产品A', '产品B', '产品C'],
-                top: '5%',
-                right: '10%'
-            },
-            xAxis: {
-                type: 'category',
-                data: ['Q1', 'Q2', 'Q3', 'Q4']
-            },
-            yAxis: { type: 'value' },
-            series: [
-                { name: '产品A', type: 'line', stack: 'Total', data: [20, 30, 45, 55], lineStyle: { color: '#FF6B6B' } },
-                { name: '产品B', type: 'line', stack: 'Total', data: [15, 25, 30, 40], lineStyle: { color: '#4ECDC4' } },
-                { name: '产品C', type: 'line', stack: 'Total', data: [10, 18, 22, 35], lineStyle: { color: '#FFD166' } }
-            ]
-        });
-
-        //区域面积图
-        var areaChart = echarts.init(document.getElementById('areaChart'));
-        areaChart.setOption({
-            title: { text: '近两年月均气温（℃）', left: 'center' },
-            tooltip: { trigger: 'axis' },
-            legend: { 
-                data: ['2024年', '2025年'],
-                top: '5%',
-                right: '10%'
-            },
-            xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
-            },
-            yAxis: { type: 'value' },
-            series: [
-                {
-                    name: '2024年',
-                    type: 'line',
-                    areaStyle: { color: 'rgba(74, 144, 226, 0.3)' },
-                    data: [1, 3, 8, 14, 20, 25, 28, 27, 22, 16, 9, 3],
-                    lineStyle: { color: '#4A90E2' }
-                },
-                {
-                    name: '2025年',
-                    type: 'line',
-                    areaStyle: { color: 'rgba(255, 107, 107, 0.3)' },
-                    data: [0, 4, 10, 16, 22, 28, 31, 30, 24, 18, 11, 5],
-                    lineStyle: { color: '#FF6B6B' }
-                }
-            ]
-        });
-
-        //基础饼图
-        var pieChart = echarts.init(document.getElementById('pieChart'));
-        pieChart.setOption({
-            title: { 
-                text: '2025年Q4各品类销售占比', 
-                left: 'center',
-                top: '5%'
-            },
-            tooltip: { trigger: 'item' },
-            legend: { 
-                orient: 'vertical',
-                left: 'left',
-                data: ['家电', '数码', '服装', '食品', '其他']
-            },
-            series: [{
-                name: '销售占比',
-                type: 'pie',
-                radius: '55%',
-                center: ['50%', '55%'],
-                data: [
-                    { value: 85, name: '家电', itemStyle: { color: '#409EFF' } },
-                    { value: 62, name: '数码', itemStyle: { color: '#F56C6C' } },
-                    { value: 48, name: '服装', itemStyle: { color: '#67C23A' } },
-                    { value: 35, name: '食品', itemStyle: { color: '#E6A23C' } },
-                    { value: 20, name: '其他', itemStyle: { color: '#909399' } }
-                ],
-                label: { 
-                    show: true,
-                    formatter: '{b}: {d}%'
-                }
-            }]
-        });
-    </script>
 </body>
 </html>

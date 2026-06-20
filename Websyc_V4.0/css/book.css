@@ -1,0 +1,58 @@
+.book-item 
+{
+    display: flex;
+    flex-direction: column; 
+    gap: 10px; 
+    margin-bottom: 15px; 
+}
+.book-item img
+{
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all 2s ease;
+    transform-origin: center center;
+    position: relative;
+    z-index: 1;
+}
+.book-item img:hover
+{
+    height: 480px;
+    width: auto;
+    transform: rotate(360deg);
+    z-index: 10;
+}
+h3 
+{   
+    color: red;
+    text-align: center;
+    margin: 20px 0;
+}
+.book-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    /* justify-items: center; */
+    padding: 20px;
+    width: 100%;
+}
+.course-box 
+{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    width:220px;
+}
+.tag
+{
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 14px; 
+}
+h4 
+{
+    margin: 0 0 10px 0;
+    color: #0000ff;
+    font-size: 16px;
+}

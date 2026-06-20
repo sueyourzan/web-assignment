@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课表</title>
+    <link rel="stylesheet" href="./css/schedule.css">
+    <link rel="stylesheet" href="./css/common.css">
+</head>
+<body>
+    <h3>课表</h3>
+    <table>
+        <table>
+
+            <colgroup>
+                <col style="width: 5%;">
+                <col style="width: 10%;"> 
+                <col> 
+                <col> 
+                <col> 
+                <col> 
+                <col> 
+            </colgroup>
+
+            <thead>
+                <tr>
+                    <th colspan="2">节 次</th>
+                    <th>星期一</th>
+                    <th>星期二</th>
+                    <th>星期三</th>
+                    <th>星期四</th>
+                    <th>星期五</th>
+                </tr>
+            </thead>
+        
+            <tbody>
+                <tr>
+                    <td rowspan="2">上午</td>
+                    <td>第一二节</td>
+                    <td class="computer-course">计算机组成原理<b>3A512</b></td>
+                    <td class="java-course">Java语言课程设计<b>工A103</b></td>
+                    <td class="java-course">Java语言课程设计<b>工A103</b></td>
+                    <td class="database-course">数据库原理与应用<b>3A216</b></td>
+                    <td class="math-course">离散数学<b>3A216</b></td>
+                </tr>
+
+
+                <tr>
+                    <td>第三四节</td>
+                    <td class="java-course">Java语言课程设计<b>工A103</b></td>
+                    <td class="web-course">Web技术基础<b>工A306</b></td>
+                    <td class="math-course">离散数学<b>3A216</b></td>
+                    <td class="web-course">Web技术基础<b>工A306</b></td>
+                    <td class="java-course">Java语言课程设计<b>工A103</b></td>
+                </tr>
+
+            
+                <tr>
+                    <td rowspan="2">下午</td>
+                    <td>第五六节</td>
+                    <td class="database-course">数据库原理与应用<b>3A216</b></td>
+                    <td class="history-course">中国近现代史纲要<b>1B107</b></td>
+                    <td></td>
+                    <td></td>
+                    <td class="history-course">中国近现代史纲要<b>1B107</b></td>
+                </tr>
+
+        
+                <tr>
+                    <td>第七八节</td>
+                    <td class="database-course">数据库原理与应用<b>3A216</b></td>
+                    <td class="history-course">中国近现代史纲要<b>1B107</b></td>
+                    <td></td>
+                    <td></td>
+                    <td class="history-course">中国近现代史纲要<b>1B107</b>
+                    </td>
+                </tr>
+            </tbody>   
+    </table>
+
+<div id="course-info">点击下方课程查看详情</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const infoDiv = document.getElementById('course-info');
+
+            document.querySelector('tbody').addEventListener('click', function(e) {
+                const target = e.target;
+
+                if (target.tagName === 'TD' && target.innerText.trim() !== '') {
+                    let courseName = target.innerText.split('3')[0].split('工')[0].split('1')[0].trim();
+                    infoDiv.innerHTML = `<a href="#">${courseName}</a> 简介`;
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

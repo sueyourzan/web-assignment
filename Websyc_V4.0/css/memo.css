@@ -1,0 +1,53 @@
+.header-bar h3 {
+    margin: 0;
+    color: red;
+    font-size: 18px;
+}
+.header-bar {
+    align-items: center;
+    justify-content: center;
+    text-align: center;    
+    display: flex;               
+    margin-bottom: 15px;
+    flex-wrap: wrap; 
+}
+.text{
+    font-size: 18px;
+    color: red;
+}
+.header-bar #todayDisplay {
+    font-weight: bold;
+    color: #00f; /* 蓝色日期 */
+    font-size: 18px;
+}
+#form1 {
+    border: 2px solid purple; 
+    padding: 10px;
+    margin: 10px auto; /* 居中 */
+    max-width: 400px;
+    display: none;  /* 默认隐藏，点击按钮后显示 */
+    box-sizing: border-box;
+    font-size: 16px;
+}
+/* 备忘录加长 */
+.form-group:nth-child(2) input {
+    flex-grow: 1;       
+    min-width: 300px;   
+}
+input[type="radio"] {
+    accent-color: blue; 
+    margin-right: 5px;
+}
+.memo-list li {
+    color:red;
+}
+.memo-list li:hover {
+    background-color: #FF69B4; 
+    cursor: pointer;
+}
+.memo-list li.done {
+    color: #999999; 
+    opacity: 0.7;   
+}
+
+
