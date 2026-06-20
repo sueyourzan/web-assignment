@@ -1,0 +1,311 @@
+/* ========== 登录注册弹窗样式 ========== */
+
+/* 遮罩层 */
+.auth-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    animation: fadeIn 0.25s ease-out;
+}
+
+/* 弹窗主体 */
+.auth-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 420px;
+    max-width: 90vw;
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    overflow: hidden;
+    animation: modalIn 0.3s ease-out;
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* 关闭按钮 */
+.auth-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    z-index: 1;
+}
+
+.auth-close:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+/* Tab 切换 */
+.auth-tabs {
+    display: flex;
+    border-bottom: 1px solid #F1F2F3;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 16px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    border-bottom: 2px solid transparent;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: var(--font-main);
+}
+
+.auth-tab:hover {
+    color: var(--bili-blue);
+    background: rgba(0, 161, 214, 0.04);
+}
+
+.auth-tab.active {
+    color: var(--bili-blue);
+    border-bottom-color: var(--bili-blue);
+}
+
+/* 表单容器 */
+.auth-form {
+    padding: 24px;
+    display: none;
+}
+
+.auth-form.active {
+    display: block;
+}
+
+/* 表单组 */
+.auth-form .form-group {
+    margin-bottom: 18px;
+}
+
+.auth-form .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.auth-form .form-group input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #E3E5E7;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: var(--font-main);
+    transition: var(--transition);
+    background: #F9FAFB;
+    color: var(--text-primary);
+}
+
+.auth-form .form-group input:focus {
+    outline: none;
+    border-color: var(--bili-blue);
+    background: var(--bg-white);
+    box-shadow: 0 0 0 3px rgba(0, 161, 214, 0.1);
+}
+
+/* 校验提示信息 */
+.form-msg {
+    font-size: 12px;
+    margin-top: 4px;
+    min-height: 18px;
+    line-height: 1.5;
+}
+
+.msg-ok {
+    color: var(--bili-green);
+}
+
+.msg-error {
+    color: var(--bili-pink);
+}
+
+/* 提交按钮 */
+.auth-submit {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    background: var(--bili-blue);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--font-main);
+}
+
+.auth-submit:hover {
+    background: var(--bili-blue-dark);
+}
+
+.auth-submit:active {
+    transform: scale(0.98);
+}
+
+/* 登录错误提示 */
+.login-msg {
+    text-align: center;
+    font-size: 13px;
+    margin-bottom: 8px;
+    min-height: 20px;
+}
+
+/* ========== Toast 提示 ========== */
+.toast {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    padding: 12px 28px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    z-index: 2000;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    white-space: nowrap;
+    box-shadow: var(--shadow-lg);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.toast-success {
+    background: linear-gradient(135deg, #4CAF50, #66BB6A);
+}
+
+.toast-error {
+    background: linear-gradient(135deg, #FB7299, #FF9AB5);
+}
+
+/* ========== 导航栏用户信息 ========== */
+.user-info {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+}
+
+.user-name {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 500;
+}
+
+.user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.logout-link {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.75);
+    cursor: pointer;
+    transition: var(--transition);
+    background: none;
+    border: none;
+    font-family: var(--font-main);
+}
+
+.logout-link:hover {
+    color: #FFFFFF;
+}
+
+/* 登录入口按钮 */
+.auth-entry {
+    display: inline-flex;
+    align-items: center;
+}
+
+.auth-entry-btn {
+    padding: 6px 16px;
+    background: var(--bili-pink);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--font-main);
+    white-space: nowrap;
+}
+
+.auth-entry-btn:hover {
+    background: #E5647F;
+    transform: scale(1.05);
+}
+
+/* ========== 响应式 ========== */
+@media (max-width: 480px) {
+    .auth-modal {
+        width: 95vw;
+        max-width: none;
+        border-radius: var(--radius-md);
+    }
+
+    .auth-form {
+        padding: 16px;
+    }
+
+    .auth-tab {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .toast {
+        width: 90vw;
+        text-align: center;
+        white-space: normal;
+    }
+}

@@ -4,14 +4,39 @@
 .header {
     background: var(--bili-blue);
     color: white;
-    text-align: center;
-    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    position: relative;
 }
 
 .header h2 {
     font-size: 18px;
     font-weight: 500;
     color: white;
+}
+
+.header-right {
+    position: absolute;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+}
+
+/* 时间显示 */
+.time {
+    margin-left: auto;
+    padding: 6px 12px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.time #current-time {
+    font-family: 'Courier New', monospace;
 }
 
 /* 导航栏 */
@@ -60,19 +85,6 @@
     border-radius: 2px;
 }
 
-/* 时间显示 */
-.time {
-    margin-left: auto;
-    padding: 6px 12px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    white-space: nowrap;
-}
-
-.time #current-time {
-    font-family: 'Courier New', monospace;
-}
-
 /* 主内容框架 */
 .mainFrame {
     width: 100%;
@@ -97,6 +109,31 @@
     font-weight: 500;
 }
 
+/* float 布局示例：页脚社交链接区域 */
+.footer-links {
+    overflow: hidden;  /* 清除浮动 */
+    margin-top: 8px;
+}
+
+.footer-links .footer-left {
+    float: left;
+}
+
+.footer-links .footer-right {
+    float: right;
+}
+
+.footer-links a {
+    color: rgba(255,255,255,0.5);
+    font-size: 11px;
+    margin-left: 12px;
+    transition: var(--transition);
+}
+
+.footer-links a:hover {
+    color: var(--bili-blue);
+}
+
 /* 响应式 */
 @media (max-width: 768px) {
     .header {
@@ -112,11 +149,50 @@
     }
 
     .nav a {
-        padding: 12px 12px;
+        padding: 12px 10px;
         font-size: 13px;
     }
 
     .time {
         display: none;
+    }
+
+    .auth-entry-btn {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h2 {
+        font-size: 14px;
+    }
+
+    .nav {
+        padding: 0 4px;
+        gap: 0;
+    }
+
+    .nav a {
+        padding: 10px 6px;
+        font-size: 11px;
+    }
+
+    .auth-entry {
+        padding: 0 4px;
+    }
+
+    .auth-entry-btn {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
+
+    .mainFrame {
+        min-height: calc(100vh - 100px);
+    }
+
+    .footer {
+        padding: 12px 16px;
+        font-size: 11px;
     }
 }

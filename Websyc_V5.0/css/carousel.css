@@ -1,0 +1,246 @@
+/* ========== 轮播图样式 ========== */
+
+.carousel-wrapper {
+    margin-bottom: 20px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+    background: #1a1a2e;
+}
+
+/* 轮播轨道 */
+.carousel-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* 单张幻灯片 */
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out;
+    display: flex;
+    align-items: center;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 幻灯片图片背景 */
+.carousel-slide .slide-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 渐变遮罩 */
+.carousel-slide::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.35));
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* 幻灯片文字 */
+.slide-content {
+    position: relative;
+    z-index: 2;
+    color: #FFFFFF;
+    padding: 0 60px;
+    max-width: 650px;
+}
+
+.slide-content .slide-tag {
+    display: inline-block;
+    padding: 4px 14px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: #FFFFFF;
+}
+
+.slide-content .slide-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #FFFFFF;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    line-height: 1.3;
+}
+
+.slide-content .slide-desc {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.7;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+    font-weight: 400;
+}
+
+/* 指示器 */
+.carousel-indicators {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-dot:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.carousel-dot.active {
+    width: 28px;
+    border-radius: 5px;
+    background: var(--bili-blue);
+}
+
+/* 左右箭头 */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+.carousel-arrow:hover {
+    background: rgba(255, 255, 255, 0.35);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-prev {
+    left: 16px;
+}
+
+.carousel-next {
+    right: 16px;
+}
+
+/* 轮播图高度（配色降级，不用图片时使用） */
+.carousel-slide.slide-theme-blue {
+    background: linear-gradient(135deg, #0D47A1, #1976D2, #00A1D6);
+}
+
+.carousel-slide.slide-theme-pink {
+    background: linear-gradient(135deg, #880E4F, #C2185B, #FB7299);
+}
+
+.carousel-slide.slide-theme-green {
+    background: linear-gradient(135deg, #1B5E20, #388E3C, #4CAF50);
+}
+
+.carousel-slide.slide-theme-orange {
+    background: linear-gradient(135deg, #BF360C, #E64A19, #FF6633);
+}
+
+/* ========== 响应式 ========== */
+@media (max-width: 768px) {
+    .carousel-container {
+        height: 240px;
+    }
+
+    .slide-content {
+        padding: 0 50px;
+    }
+
+    .slide-content .slide-title {
+        font-size: 20px;
+    }
+
+    .slide-content .slide-desc {
+        font-size: 12px;
+    }
+
+    .carousel-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-container {
+        height: 200px;
+    }
+
+    .slide-content {
+        padding: 0 40px;
+    }
+
+    .slide-content .slide-title {
+        font-size: 17px;
+    }
+
+    .slide-content .slide-desc {
+        font-size: 11px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .carousel-arrow {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+    }
+
+    .carousel-prev {
+        left: 8px;
+    }
+
+    .carousel-next {
+        right: 8px;
+    }
+}

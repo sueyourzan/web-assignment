@@ -6,40 +6,100 @@
     <title>课程简介</title>
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/introduce.css">
+    <link rel="stylesheet" href="../css/carousel.css">
 </head>
 <body>
+    <!-- ========== 课程新闻轮播图 ========== -->
+    <section class="carousel-wrapper" aria-label="课程新闻轮播">
+        <div class="carousel-container" id="introCarousel">
+            <!-- 幻灯片1 -->
+            <div class="carousel-slide slide-theme-blue active">
+                <div class="slide-content">
+                    <span class="slide-tag">📢 课程通知</span>
+                    <h3 class="slide-title">Web技术基础课程开课啦！</h3>
+                    <p class="slide-desc">2025-2026学年第二学期，欢迎同学们学习Web前端开发三大核心技术：HTML5、CSS3与JavaScript</p>
+                </div>
+            </div>
+            <!-- 幻灯片2 -->
+            <div class="carousel-slide slide-theme-pink">
+                <div class="slide-content">
+                    <span class="slide-tag">🏆 学习目标</span>
+                    <h3 class="slide-title">掌握前端开发核心技能</h3>
+                    <p class="slide-desc">从零基础到独立开发响应式网站，通过项目实战培养学生网页设计与开发能力</p>
+                </div>
+            </div>
+            <!-- 幻灯片3 -->
+            <div class="carousel-slide slide-theme-green">
+                <div class="slide-content">
+                    <span class="slide-tag">💡 实践项目</span>
+                    <h3 class="slide-title">大作业：课程学习平台</h3>
+                    <p class="slide-desc">综合运用Flex弹性布局、HTML5语义标签、CSS3动画、JavaScript交互等技术完成课程项目</p>
+                </div>
+            </div>
+            <!-- 幻灯片4 -->
+            <div class="carousel-slide slide-theme-orange">
+                <div class="slide-content">
+                    <span class="slide-tag">📅 考核方式</span>
+                    <h3 class="slide-title">平时成绩 + 大作业 + 期末考核</h3>
+                    <p class="slide-desc">注重实践能力培养，大作业占比40%，考查学生综合运用Web前端技术的能力</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <h1 class="page-title">📖 课程简介</h1>
 
-    <div class="intro-card">
+    <!-- ========== 课程介绍文章 ========== -->
+    <article class="intro-card">
+        <h2>课程概述</h2>
+        <time datetime="2025-09">2025年9月 · 软件工程专业</time>
         <p>
             <span class="drop-cap">本</span>课程是软件工程专业的一门专业必修课。通过对Web前端三大主流开发技术学习、探究和实践，让学生理解和掌握<i>HTML5</i>、<i>CSS3</i>、<i>JavaScript</i>等脚本语言的相关知识，通过项目实战和训练培养学生开发和设计Web网站或网页的基本操作技能和工作岗位适应能力。
         </p>
         <p>
             <span class="drop-cap">通</span>过本课程的学习，使学生理解和掌握<i>HTML</i>（超文本标记语言）中各种常用标记的使用；<i>CSS</i>（层叠样式表）常用属性的使用，如何运用 <i>div + CSS</i> 对网页进行布局；<code>JavaScript</code>脚本语言的基础知识，以及借助于<code>JavaScript</code>语言的强大功能增强网页功能，实现用户交互事件等动态网页功能，为后续课程奠定学习基础。
         </p>
-    </div>
+    </article>
 
-    <div class="course-highlights">
-        <div class="highlight-item">
-            <div class="highlight-icon">🌐</div>
-            <div class="highlight-title">HTML5</div>
-            <div class="highlight-desc">网页结构与语义化</div>
+    <!-- ========== 课程亮点 ========== -->
+    <article>
+        <h2>核心技术栈</h2>
+        <div class="course-highlights">
+            <div class="highlight-item">
+                <div class="highlight-icon">🌐</div>
+                <div class="highlight-title">HTML5</div>
+                <div class="highlight-desc">网页结构与语义化</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-icon">🎨</div>
+                <div class="highlight-title">CSS3</div>
+                <div class="highlight-desc">样式设计与布局</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-icon">⚡</div>
+                <div class="highlight-title">JavaScript</div>
+                <div class="highlight-desc">交互与动态效果</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-icon">📱</div>
+                <div class="highlight-title">响应式设计</div>
+                <div class="highlight-desc">多端适配开发</div>
+            </div>
         </div>
-        <div class="highlight-item">
-            <div class="highlight-icon">🎨</div>
-            <div class="highlight-title">CSS3</div>
-            <div class="highlight-desc">样式设计与布局</div>
-        </div>
-        <div class="highlight-item">
-            <div class="highlight-icon">⚡</div>
-            <div class="highlight-title">JavaScript</div>
-            <div class="highlight-desc">交互与动态效果</div>
-        </div>
-        <div class="highlight-item">
-            <div class="highlight-icon">📱</div>
-            <div class="highlight-title">响应式设计</div>
-            <div class="highlight-desc">多端适配开发</div>
-        </div>
-    </div>
+    </article>
+
+    <!-- ========== 学习目标文章 ========== -->
+    <article>
+        <h2>📋 学习目标</h2>
+        <time datetime="2025-09">2025-2026 第二学期</time>
+        <p>通过本课程的学习，学生应达到以下目标：</p>
+        <p>1. 熟练掌握 <strong>HTML5</strong> 语义化标签的使用，能够构建结构清晰的网页文档；</p>
+        <p>2. 掌握 <strong>CSS3</strong> 布局技术（Flex、Grid、浮动定位等），能够实现美观的页面样式；</p>
+        <p>3. 理解 <strong>JavaScript</strong> 核心概念，能够实现页面交互与动态效果；</p>
+        <p>4. 具备<strong>响应式设计</strong>能力，能够开发适配多终端设备的Web页面。</p>
+    </article>
+
+    <!-- 加载轮播图脚本 -->
+    <script src="../js/carousel.js"></script>
 </body>
 </html>

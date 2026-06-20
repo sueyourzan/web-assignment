@@ -7,15 +7,30 @@
     <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/auth.css">
     <script src="../js/utils.js"></script>
 </head>
 <body>
     <a name="top"></a>
 
-    <div class="header">
+    <!-- ========== 头部 ========== -->
+    <header class="header">
         <h2>📚 2025-2026 学期课程学习平台</h2>
-    </div>
+        <div class="header-right">
+            <!-- 未登录 -->
+            <span class="auth-entry" id="authEntry">
+                <button class="auth-entry-btn" id="openAuthBtn">🔑 登录 / 注册</button>
+            </span>
+            <!-- 已登录 -->
+            <span class="user-info" id="userInfo">
+                <span class="user-avatar">👤</span>
+                <span class="user-name" id="userNameDisplay"></span>
+                <button class="logout-link" id="logoutBtn">退出</button>
+            </span>
+        </div>
+    </header>
 
+    <!-- ========== 导航栏 ========== -->
     <nav class="nav">
         <a href="introduce.html" target="mainFrame" class="active">📖 课程简介</a>
         <a href="schedule.html" target="mainFrame">📅 课程表</a>
@@ -24,11 +39,13 @@
         <a href="echart.html" target="mainFrame">📊 数据图表</a>
         <a href="audio.html" target="mainFrame">🎵 音乐空间</a>
         <a href="game.html" target="mainFrame">🎮 小游戏</a>
+
         <div class="time">
             <span id="current-time"></span>
         </div>
     </nav>
 
+    <!-- ========== 主内容区 ========== -->
     <iframe
         src="introduce.html"
         name="mainFrame"
@@ -36,37 +53,94 @@
         class="mainFrame">
     </iframe>
 
+    <!-- ========== 页脚 ========== -->
     <footer class="footer">
         <div>&copy; 闽江学院 · 计算机和大数据学院 · 人工智能</div>
         <div>联系人：<strong>苏友灿</strong> &nbsp;|&nbsp; 学号：<strong>3232707221</strong></div>
     </footer>
 
+    <!-- ========== 登录/注册弹窗 ========== -->
+    <!-- 遮罩层 -->
+    <div class="auth-overlay" id="authOverlay"></div>
+
+    <!-- 弹窗 -->
+    <div class="auth-modal" id="authModal">
+        <button class="auth-close" id="closeAuth" title="关闭">&times;</button>
+
+        <!-- Tab切换 -->
+        <div class="auth-tabs">
+            <button class="auth-tab active" id="loginTab">🔑 登录</button>
+            <button class="auth-tab" id="registerTab">📝 注册</button>
+        </div>
+
+        <!-- ===== 登录表单 ===== -->
+        <form class="auth-form active" id="loginForm" onsubmit="return false;">
+            <div class="login-msg" id="loginMsg"></div>
+            <div class="form-group">
+                <label>👤 用户名</label>
+                <input type="text" id="loginUsername" placeholder="请输入用户名" autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label>🔒 密码</label>
+                <input type="password" id="loginPassword" placeholder="请输入密码" autocomplete="current-password">
+            </div>
+            <button type="button" class="auth-submit" id="loginBtn">登 录</button>
+        </form>
+
+        <!-- ===== 注册表单 ===== -->
+        <form class="auth-form" id="registerForm" onsubmit="return false;">
+            <div class="form-group">
+                <label>👤 用户名</label>
+                <input type="text" id="regUsername" placeholder="6-20位，字母开头，可含数字和下划线" autocomplete="off">
+                <div class="form-msg" id="regUsernameMsg"></div>
+            </div>
+            <div class="form-group">
+                <label>🔒 密码</label>
+                <input type="password" id="regPassword" placeholder="8-20位，需含大小写字母、数字和特殊字符" autocomplete="new-password">
+                <div class="form-msg" id="regPasswordMsg"></div>
+            </div>
+            <div class="form-group">
+                <label>🔒 确认密码</label>
+                <input type="password" id="regPassword2" placeholder="请再次输入密码" autocomplete="new-password">
+                <div class="form-msg" id="regPassword2Msg"></div>
+            </div>
+            <button type="button" class="auth-submit" id="registerBtn">注 册</button>
+        </form>
+    </div>
+
+    <!-- ========== 脚本 ========== -->
+    <script src="../js/auth.js"></script>
+    <script src="../js/carousel.js"></script>
     <script>
         // 导航高亮
         document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('.nav a');
+            var navLinks = document.querySelectorAll('.nav > a');
 
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    navLinks.forEach(l => l.classList.remove('active'));
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(function(l) { l.classList.remove('active'); });
                     this.classList.add('active');
                 });
             });
 
             // iframe加载时更新导航
-            const iframe = document.getElementById('mainFrame');
+            var iframe = document.getElementById('mainFrame');
             iframe.addEventListener('load', function() {
-                const currentSrc = iframe.contentWindow.location.pathname.split('/').pop();
-                navLinks.forEach(link => {
-                    if (link.getAttribute('href') === currentSrc) {
-                        navLinks.forEach(l => l.classList.remove('active'));
-                        link.classList.add('active');
-                    }
-                });
+                try {
+                    var currentSrc = iframe.contentWindow.location.pathname.split('/').pop();
+                    navLinks.forEach(function(link) {
+                        if (link.getAttribute('href') === currentSrc) {
+                            navLinks.forEach(function(l) { l.classList.remove('active'); });
+                            link.classList.add('active');
+                        }
+                    });
+                } catch (e) {
+                    // 跨域忽略
+                }
             });
         });
 
-        // 自动调整iframe高度
+        // 自动调整iframe高度（供子页面调用）
         function autoResize() {
             if (parent && parent.document.getElementById("mainFrame")) {
                 var iframe = parent.document.getElementById("mainFrame");
