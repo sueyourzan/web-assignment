@@ -1,155 +1,139 @@
-/* ========== B站风格 - 课表 ========== */
+/* ========== B站风格 - 课表（V3功能复刻） ========== */
 body {
     padding: 16px;
     max-width: 1000px;
     margin: 0 auto;
+    background: var(--bg-primary);
 }
 
-/* 课表容器 */
-.schedule-container {
-    background: var(--bg-white);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-    overflow: hidden;
-    animation: fadeIn 0.3s ease-out;
+h3 {
+    color: var(--text-primary);
+    text-align: center;
+    margin: 20px 0;
+    font-size: 22px;
+    font-weight: 600;
 }
 
-/* 课表表格 */
-.schedule-table {
+/* 表格 */
+table {
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
+    border: 1px solid #E3E5E7;
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    animation: fadeIn 0.3s ease-out;
 }
 
-.schedule-table thead th {
+th {
     background: var(--bili-blue);
     color: white;
     padding: 12px 8px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     text-align: center;
+    vertical-align: middle;
     border: none;
 }
 
-.schedule-table tbody td {
-    padding: 10px 6px;
-    text-align: center;
+td {
     border: 1px solid #F1F2F3;
-    font-size: 12px;
-    transition: var(--transition);
+    padding: 8px 6px;
+    height: 40px;
+    font-size: 13px;
+    text-align: center;
     vertical-align: middle;
-    line-height: 1.5;
+    transition: background 0.2s;
 }
 
-.schedule-table tbody td:hover {
-    background: #F6F7F8;
-}
-
-.schedule-table tbody td b {
+td b {
     display: block;
     font-size: 11px;
     font-weight: 400;
-    opacity: 0.8;
+    opacity: 0.7;
     margin-top: 2px;
 }
 
 /* 节次列 */
-.schedule-table .time-label {
+td[rowspan] {
     background: #F6F7F8;
     font-weight: 500;
     color: var(--text-regular);
-    font-size: 12px;
-    width: 60px;
+    font-size: 13px;
 }
 
-.schedule-table .period-label {
-    background: #FAFAFA;
-    font-weight: 400;
-    color: var(--text-secondary);
-    font-size: 12px;
-    width: 70px;
-}
-
-/* 课程颜色 - B站风格渐变 */
-.course-computer {
+/* 课程颜色 - B站风格 */
+.computer-course {
     background: linear-gradient(135deg, #FB7299, #FF9AB5);
     color: white;
     border-radius: 4px;
     font-weight: 500;
 }
 
-.course-java {
+.java-course {
     background: linear-gradient(135deg, #00A1D6, #23ADE5);
     color: white;
     border-radius: 4px;
     font-weight: 500;
 }
 
-.course-web {
+.web-course {
     background: linear-gradient(135deg, #FF6633, #FF8F66);
     color: white;
     border-radius: 4px;
     font-weight: 500;
 }
 
-.course-database {
+.database-course {
     background: linear-gradient(135deg, #FFB027, #FFCF70);
     color: white;
     border-radius: 4px;
     font-weight: 500;
 }
 
-.course-math {
+.math-course {
     background: linear-gradient(135deg, #4CAF50, #81C784);
     color: white;
     border-radius: 4px;
     font-weight: 500;
 }
 
-.course-history {
+.history-course {
     background: linear-gradient(135deg, #9C27B0, #BA68C8);
     color: white;
     border-radius: 4px;
     font-weight: 500;
 }
 
-.course-empty {
-    background: #FAFAFA;
-    color: #E3E5E7;
-}
-
 /* 课程信息提示 */
-.course-info {
+#course-info {
     margin-top: 16px;
     padding: 14px 20px;
     background: var(--bg-white);
     border-radius: var(--radius-md);
-    text-align: center;
-    font-size: 14px;
+    box-shadow: var(--shadow-sm);
+    font-size: 15px;
     color: var(--text-secondary);
     min-height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: var(--transition);
-    box-shadow: var(--shadow-sm);
 }
 
-.course-info.active {
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-.course-info strong {
-    color: var(--bili-blue);
-}
-
-.course-info a {
+#course-info a {
     color: var(--bili-blue);
     font-weight: 500;
     text-decoration: none;
     border-bottom: 1px solid var(--bili-blue);
-    padding-bottom: 1px;
+    padding-bottom: 2px;
+    transition: color 0.2s;
+}
+
+#course-info a:hover {
+    color: var(--bili-pink);
+    border-bottom-color: var(--bili-pink);
 }
 
 /* 图例 */
@@ -181,12 +165,12 @@ body {
 
 /* 响应式 */
 @media (max-width: 768px) {
-    .schedule-table tbody td {
-        padding: 8px 4px;
+    td {
+        padding: 6px 4px;
         font-size: 11px;
     }
 
-    .schedule-table tbody td b {
+    td b {
         font-size: 10px;
     }
 

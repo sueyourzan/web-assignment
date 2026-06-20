@@ -235,10 +235,6 @@ tr:last-child td {
     border-bottom: none;
 }
 
-tr:hover td {
-    background: #F6F7F8;
-}
-
 /* ========== 动画 ========== */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(8px); }

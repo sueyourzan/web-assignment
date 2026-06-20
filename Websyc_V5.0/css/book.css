@@ -75,15 +75,22 @@ body {
 }
 
 .book-img-wrapper img {
-    width: 120px;
-    height: 160px;
+    width: 150px;
+    height: 200px;
     object-fit: cover;
     display: block;
-    transition: var(--transition);
+    cursor: pointer;
+    transition: all 2s ease;
+    transform-origin: center center;
+    position: relative;
+    z-index: 1;
 }
 
 .book-img-wrapper:hover img {
-    transform: scale(1.05);
+    height: 480px;
+    width: auto;
+    transform: rotate(360deg);
+    z-index: 10;
 }
 
 /* 图片遮罩 */
